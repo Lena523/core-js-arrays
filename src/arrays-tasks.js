@@ -304,8 +304,11 @@ function distinct(arr) {
  *    createNDimensionalArray(4, 2) => [[[[0, 0], [0, 0]], [[0, 0], [0, 0]]], [[[0, 0], [0, 0]], [[0, 0], [0, 0]]]]
  *    createNDimensionalArray(1, 1) => [0]
  */
-function createNDimensionalArray(/* n, size */) {
-  throw new Error('Not implemented');
+function createNDimensionalArray(n, size, k = 0) {
+  const arr = new Array(size).fill(0);
+  return k + 1 === n
+    ? arr
+    : arr.map(() => createNDimensionalArray(n, size, k + 1));
 }
 
 /**
@@ -340,7 +343,8 @@ function flattenArray(nestedArray) {
  *   selectMany([[1, 2], [3, 4], [5, 6]], (x) => x) =>   [ 1, 2, 3, 4, 5, 6 ]
  *   selectMany(['one','two','three'], (x) => x.split('')) =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
-function selectMany(/* arr, childrenSelector */) {
+
+function selectMany(/*arr, childrenSelector*/) {
   throw new Error('Not implemented');
 }
 
