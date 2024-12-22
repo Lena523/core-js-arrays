@@ -540,8 +540,14 @@ function getHexRGBValues(arr) {
  *   getMaxItems([ 10, 2, 7, 5, 3, -5 ], 3) => [ 10, 7, 5 ]
  *   getMaxItems([ 10, 10, 10, 10 ], 3) => [ 10, 10, 10 ]
  */
-function getMaxItems(/* arr, n */) {
-  throw new Error('Not implemented');
+function getMaxItems(arr, n) {
+  function compareNumbers(a, b) {
+    return a - b;
+  }
+  const sortedArr = arr.sort(compareNumbers);
+  const reversedArr = sortedArr.reverse();
+  const bigNumArr = reversedArr.slice(0, n);
+  return bigNumArr;
 }
 
 /**
@@ -556,8 +562,16 @@ function getMaxItems(/* arr, n */) {
  *    findCommonElements(['a', 'b', 'c'], ['b', 'c', 'd']) => [ 'b', 'c' ]
  *    findCommonElements([1, 2, 3], ['a', 'b', 'c']) => []
  */
-function findCommonElements(/* arr1, arr2 */) {
-  throw new Error('Not implemented');
+function findCommonElements(arr1, arr2, i = 0, commonNums = []) {
+  const arr1Length = arr1.length;
+  const arr2Length = arr2.length;
+  if (i < arr2Length && i < arr1Length) {
+    commonNums.push(arr1.find((element) => element === arr2[i]));
+    findCommonElements(arr1, arr2, i + 1, commonNums);
+  }
+
+  const total = commonNums.filter((element) => element !== undefined);
+  return total;
 }
 
 /**
@@ -571,8 +585,31 @@ function findCommonElements(/* arr1, arr2 */) {
  *    findLongestIncreasingSubsequence([3, 10, 2, 1, 20]) => 2
  *    findLongestIncreasingSubsequence([50, 3, 10, 7, 40, 80]) => 3
  */
-function findLongestIncreasingSubsequence(/* nums */) {
-  throw new Error('Not implemented');
+function findLongestIncreasingSubsequence(
+  nums,
+  count = 1,
+  i = 0,
+  totalIncrease = []
+) {
+  let index = count;
+  if (i < nums.length - 1) {
+    if (nums[i] < nums[i + 1]) {
+      findLongestIncreasingSubsequence(nums, index + 1, i + 1, totalIncrease);
+    } else {
+      totalIncrease.push(index);
+      findLongestIncreasingSubsequence(nums, (index = 1), i + 1, totalIncrease);
+    }
+  }
+  totalIncrease.push(index);
+  function compareNumbers(a, b) {
+    return a - b;
+  }
+  if (totalIncrease.length > 1) {
+    const sortedArr = totalIncrease.sort(compareNumbers);
+    const reversedArr = sortedArr.reverse();
+    return reversedArr[0];
+  }
+  return totalIncrease[0];
 }
 
 /**
