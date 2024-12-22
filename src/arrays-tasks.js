@@ -466,10 +466,10 @@ function getFalsyValuesCount(arr) {
 function getIdentityMatrix(n) {
   return Array(n)
     .fill(0)
-    .map(function (elem, i) {
+    .map(function matrix(elem, i) {
       return Array(n)
         .fill(0)
-        .map(function (elem2, j) {
+        .map(function matrix1(elem2, j) {
           return 1 - Math.min(Math.abs(i - j), 1);
         });
     });
