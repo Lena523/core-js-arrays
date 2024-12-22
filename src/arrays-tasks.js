@@ -626,8 +626,18 @@ function findLongestIncreasingSubsequence(
  *  propagateItemsByPositionIndex([ 'a', 'b', 'c', null ]) => [ 'a', 'b', 'b', 'c', 'c', 'c',  null, null, null, null ]
  *  propagateItemsByPositionIndex([ 1,2,3,4,5 ]) => [ 1, 2, 2, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 5 ]
  */
-function propagateItemsByPositionIndex(/* arr */) {
-  throw new Error('Not implemented');
+function propagateItemsByPositionIndex(arr, i = 0, j = 1, newArr = []) {
+  if (i < arr.length) {
+    if (j > 0) {
+      newArr.push(arr[i]);
+      propagateItemsByPositionIndex(arr, i, j - 1, newArr);
+    } else {
+      const indexI = i + 1;
+      const indexJ = indexI + 1;
+      propagateItemsByPositionIndex(arr, indexI, indexJ, newArr);
+    }
+  }
+  return newArr;
 }
 
 /**
@@ -643,8 +653,30 @@ function propagateItemsByPositionIndex(/* arr */) {
  *    shiftArray(['a', 'b', 'c', 'd'], -1) => ['b', 'c', 'd', 'a']
  *    shiftArray([10, 20, 30, 40, 50], -3) => [40, 50, 10, 20, 30]
  */
-function shiftArray(/* arr, n */) {
-  throw new Error('Not implemented');
+function shiftArray(arr, n, i = 0, newArr = new Array(arr.length)) {
+  const sortedArr = newArr;
+  if (i < arr.length && n > 0) {
+    if (i + n < arr.length) {
+      sortedArr[i + n] = arr[i];
+      shiftArray(arr, n, i + 1, sortedArr);
+    } else {
+      const index = n + i - arr.length;
+      sortedArr[index] = arr[i];
+      shiftArray(arr, n, i + 1, sortedArr);
+    }
+  }
+  if (i < arr.length && n < 0) {
+    if (i + n < 0) {
+      const index = arr.length + n + i;
+      sortedArr[index] = arr[i];
+      shiftArray(arr, n, i + 1, sortedArr);
+    } else {
+      const index = i + n;
+      sortedArr[index] = arr[i];
+      shiftArray(arr, n, i + 1, sortedArr);
+    }
+  }
+  return newArr;
 }
 
 /**
@@ -660,8 +692,25 @@ function shiftArray(/* arr, n */) {
  *   sortDigitNamesByNumericOrder([ 'nine','eight','nine','eight' ]) => [ 'eight','eight','nine','nine']
  *   sortDigitNamesByNumericOrder([ 'one','one','one','zero' ]) => [ 'zero','one','one','one' ]
  */
-function sortDigitNamesByNumericOrder(/* arr */) {
-  throw new Error('Not implemented');
+function sortDigitNamesByNumericOrder(arr) {
+  const digitsComparator = (a, b) => {
+    const mapper = [
+      'zero',
+      'one',
+      'two',
+      'three',
+      'four',
+      'five',
+      'six',
+      'seven',
+      'eight',
+      'nine',
+    ];
+    return mapper.indexOf(a) - mapper.indexOf(b);
+  };
+
+  const res = arr.sort(digitsComparator);
+  return res;
 }
 
 /**
