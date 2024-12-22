@@ -403,8 +403,12 @@ function createChunks(arr, chunkSize, k = 0, i = chunkSize, arr2 = []) {
  *    generateOdds(2) => [ 1, 3 ]
  *    generateOdds(5) => [ 1, 3, 5, 7, 9 ]
  */
-function generateOdds(/* len */) {
-  throw new Error('Not implemented');
+function generateOdds(len, index = 0, start = 1, arr1 = []) {
+  if (index < len) {
+    arr1.push(start);
+    return generateOdds(len, index + 1, start + 2, arr1);
+  }
+  return arr1;
 }
 
 /**
@@ -419,8 +423,9 @@ function generateOdds(/* len */) {
  *   getElementByIndices(['one','two','three'], [2]) => 'three'  (arr[2])
  *   getElementByIndices([[[ 1, 2, 3]]], [ 0, 0, 1 ]) => 2        (arr[0][0][1])
  */
-function getElementByIndices(/* arr, indices */) {
-  throw new Error('Not implemented');
+function getElementByIndices(arr, indices) {
+  const result = indices.reduce((obj, prop) => obj[prop], arr);
+  return result;
 }
 
 /**
@@ -435,8 +440,9 @@ function getElementByIndices(/* arr, indices */) {
  *  getFalsyValuesCount([ -1, 'false', null, 0 ]) => 2
  *  getFalsyValuesCount([ null, undefined, NaN, false, 0, '' ]) => 6
  */
-function getFalsyValuesCount(/* arr */) {
-  throw new Error('Not implemented');
+function getFalsyValuesCount(arr) {
+  const items = arr.filter((item) => Boolean(item) === false);
+  return items.length;
 }
 
 /**
