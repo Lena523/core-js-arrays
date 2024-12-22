@@ -345,6 +345,18 @@ function flattenArray(nestedArray) {
  */
 
 function selectMany(/* arr, childrenSelector */) {
+  /* function childrenSelector(element) {
+    const result = typeof element === 'string' ? element.split('') : element;
+    return result;
+  }
+  function getMaxDepth() {
+    const array = Array.isArray(arr)
+      ? 1 + Math.max(0, ...arr.map(getMaxDepth))
+      : 0;
+    return array;
+  }
+  const sortedArr = arr.flatMap(childrenSelector).flat(getMaxDepth());
+  return sortedArr; */
   throw new Error('Not implemented');
 }
 
@@ -486,8 +498,14 @@ function getIdentityMatrix(n) {
  *    getIndicesOfOddNumbers([2, 4, 6, 8, 10]) => []
  *    getIndicesOfOddNumbers([11, 22, 33, 44, 55]) => [0, 2, 4]
  */
-function getIndicesOfOddNumbers(/* numbers */) {
-  throw new Error('Not implemented');
+function getIndicesOfOddNumbers(numbers, oddIndexes = [], i = 0) {
+  if (i < numbers.length) {
+    if (numbers[i] % 2 !== 0) {
+      oddIndexes.push(i);
+    }
+    getIndicesOfOddNumbers(numbers, oddIndexes, i + 1);
+  }
+  return oddIndexes;
 }
 
 /**
@@ -500,8 +518,12 @@ function getIndicesOfOddNumbers(/* numbers */) {
  *    getHexRGBValues([ 0, 255, 16777215]) => [ '#000000', '#0000FF', '#FFFFFF' ]
  *    getHexRGBValues([]) => []
  */
-function getHexRGBValues(/* arr */) {
-  throw new Error('Not implemented');
+function getHexRGBValues(arr) {
+  const convertColors = (color) => `#${color.toString(16).padStart(6, '0')}`;
+  const colors = arr.map(convertColors);
+  const upperCase = (color) => color.toUpperCase();
+  const result = colors.map(upperCase);
+  return result;
 }
 
 /**
