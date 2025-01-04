@@ -344,20 +344,9 @@ function flattenArray(nestedArray) {
  *   selectMany(['one','two','three'], (x) => x.split('')) =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
 
-function selectMany(/* arr, childrenSelector */) {
-  /* function childrenSelector(element) {
-    const result = typeof element === 'string' ? element.split('') : element;
-    return result;
-  }
-  function getMaxDepth() {
-    const array = Array.isArray(arr)
-      ? 1 + Math.max(0, ...arr.map(getMaxDepth))
-      : 0;
-    return array;
-  }
-  const sortedArr = arr.flatMap(childrenSelector).flat(getMaxDepth());
-  return sortedArr; */
-  throw new Error('Not implemented');
+function selectMany(arr, childrenSelector) {
+  const sortedArr = arr.flatMap(childrenSelector).flat(Infinity);
+  return sortedArr;
 }
 
 /**
